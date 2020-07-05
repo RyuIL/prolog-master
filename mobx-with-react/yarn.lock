@@ -9215,6 +9215,7 @@ react-kakao-login@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-kakao-login/-/react-kakao-login-1.2.1.tgz#3bacfef55164a3be48355e78d713432f055758e6"
   integrity sha512-ALoZ4l2FRjH743FpUEI0H7X9sUcMTGxW7hYNW0XgDMyKzyFwi8eJ0zlPaHujL/vhWmZVq/m+D/xtF4/Q6dIbDw==
+
 react-loader-spinner@^3.1.5:
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/react-loader-spinner/-/react-loader-spinner-3.1.5.tgz#e9a40c6032fddf0eba319e525cc613c5d698e4f9"
@@ -11728,7 +11729,7 @@ yargs@^7.0.0:
     y18n "^3.2.1"
     yargs-parser "^5.0.0"
 
-yarn@^1.21.1:
-  version "1.21.1"
-  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.21.1.tgz#1d5da01a9a03492dc4a5957befc1fd12da83d89c"
-  integrity sha512-dQgmJv676X/NQczpbiDtc2hsE/pppGDJAzwlRiADMTvFzYbdxPj2WO4PcNyriSt2c4jsCMpt8UFRKHUozt21GQ==
+yarn@^1.22.0:
+  version "1.22.0"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.0.tgz#acf82906e36bcccd1ccab1cfb73b87509667c881"
+  integrity sha512-KMHP/Jq53jZKTY9iTUt3dIVl/be6UPs2INo96+BnZHLKxYNTfwMmlgHTaMWyGZoO74RI4AIFvnWhYrXq2USJkg==
