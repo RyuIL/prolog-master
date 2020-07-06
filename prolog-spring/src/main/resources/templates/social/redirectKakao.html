@@ -1,1 +1,29 @@
-hello
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<h1>Hello World</h1>
+
+<!-- OGNL -->
+<p th:text="${new java.util.Date().toString()}"></p>
+
+<h1>KaKao</h1>
+access_token : <b th:text="${authInfo.access_token}"/> <br>
+token_type : <b th:text="${authInfo.token_type}"/> <br>
+refresh_token : <b th:text="${authInfo.refresh_token}"/> <br>
+expires_in : <b th:text="${authInfo.expires_in}"/> <br>
+scope : <b th:text="${authInfo.scope}"/> <br>
+
+
+<h1>Google</h1>
+access_token : <b th:text="${authInfo.access_token}"/> <br>
+token_type : <b th:text="${authInfo.token_type}"/> <br>
+refresh_token : <b th:text="${authInfo.refresh_token}"/> <br>
+expires_in : <b th:text="${authInfo.expires_in}"/> <br>
+scope : <b th:text="${authInfo.scope}"/> <br>
+
+</body>
+</html>

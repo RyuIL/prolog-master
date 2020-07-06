@@ -2,41 +2,70 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { formatDistanceToNow, fromUnixTime } from 'date-fns'
-import { ko } from 'date-fns/locale'
-
-// data를 나중에 store로 옮기자. 어떤 자료를 가지고 있어야하지?
-// imageUrl, Title, category, text, likes, comments, created_at, updated_at , author
-// imageUrl이 none이면 그냥 타이틀을 키울까?
-// 일단 내부적으로 정의된 Post가 있고 이 Post의 DB 형태는 글을 작성하는 쪽에서 결정해야한다.
-// 여기에서는 요청 결과로 들어온 Post 결과물만을 보여주면 충분하다.
 const PostCard = ({ post }) => {
-  const { id, imgUrl, title, text, author, date, views } = post;
-  const dateFormat = fromUnixTime(date)
-  const dateInfo = formatDistanceToNow(dateFormat, {addSuffix:true, locale:ko})
+  const {
+    createDate,
+    updateDate,
+    postCode,
+    user,
+    title,
+    coverColor,
+    tagList,
+    body,
+    postLike,
+    postView,
+    coverImage,
+    postPrev,
+    postNext,
+    pinPost,
+    pinProject
+  } = post;
 
   return (
     <CardMainLayOut>
       <OutL>
-        <Link to={"/post/" + id}>
-          {imgUrl ? (
-            <CardImage src={imgUrl}></CardImage>
+        <Link to={"/post/" + postCode} style={{ textDecoration: "none" }}>
+          {coverImage ? (
+            <CardImage src={coverImage}></CardImage>
           ) : (
-            <DefaultImage></DefaultImage>
+            <DefaultImage color={coverColor}></DefaultImage>
           )}
         </Link>
       </OutL>
       <OutT>
         <CardTitle>{title}</CardTitle>
-        <Date>{dateInfo}</Date>
-        {/* <CardDescription>{text}</CardDescription> */}
-        <p style={{ color: "black" }}>작성자 : {author}</p>
-        <p style={{ color: "black" }}>조회수 : {views}</p>
-        <p style={{ color: "black" }}>아이디 : {id}</p>
+        <Link to={"/mypage/" + user.msrl} style={{ textDecoration: "none" }}>
+          {user.picture ? (
+            <ProfileImage src={user.picture}></ProfileImage>
+          ) : (
+            <DefaultProfile color={coverColor}></DefaultProfile>
+          )}
+        </Link>
       </OutT>
     </CardMainLayOut>
   );
 };
+const ProfileImage = styled.img`
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  float: right;
+  z-index: 2;
+`;
+
+const DefaultProfile = styled.div`
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  float: right;
+  margin-right: 5%;
+  z-index: 2;
+  background-color: ${props => props.color};
+`;
 
 const CardMainLayOut = styled.div`
   color: #fff;
@@ -66,9 +95,12 @@ const CardImage = styled.img`
   left: 0;
   width: 100%;
   height: 100%;
+  :hover {
+    filter: brightness(70%);
+  }
 `;
 
-const DefaultImage = styled.img`
+const DefaultImage = styled.div`
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   position: absolute;
@@ -76,12 +108,20 @@ const DefaultImage = styled.img`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: black;
+  background-color: ${props => props.color};
+  z-index: 1;
+  :hover {
+    filter: brightness(70%);
+  }
 `;
 
 const CardTitle = styled.h2`
-  font-weight: bold;
   color: black;
+  z-index: 2;
+  position: relative;
+  font-family: Inconsolas;
+  font-size: 20px;
+  float: left;
 `;
 
 const OutT = styled.div`
@@ -90,17 +130,6 @@ const OutT = styled.div`
   padding-top: 3%;
   padding-bottom: 3%;
   font-family: Inconsolata;
-`;
-
-const Date = styled.div`
-  color: black;
-  font-weight: 300;
-  margin: 6px 0;
-`;
-
-const CardDescription = styled.p`
-  color: black;
-  font-weight: 300;
 `;
 
 export default PostCard;

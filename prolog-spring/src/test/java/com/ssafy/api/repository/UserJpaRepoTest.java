@@ -1,6 +1,6 @@
 package com.ssafy.api.repository;
 
-import com.ssafy.api.model.User;
+import com.ssafy.api.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

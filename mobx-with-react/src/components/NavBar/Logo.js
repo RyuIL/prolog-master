@@ -1,29 +1,29 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
-const Logo = () => {
-    return (
-        <Link to={"/"} style={{textDecoration:"none"}}>
-            <LogoLayout>
-            Prolog;
-            </LogoLayout>
-        </Link>
-      );
+@withRouter
+class Logo extends Component {
+  render() {
+    const LogoClick = () => {
+      this.props.history.push("/");
+      window.location.reload();
+    };
+    return <LogoLayout onClick={LogoClick}>Prolog;</LogoLayout>;
+  }
 }
 
 const LogoLayout = styled.div`
-    padding: 0 2rem;
-    margin-top: 1.75rem;
-    margin-bottom: 1.75rem;
-    font-size: 2rem;
-    line-height: 2rem;
-    font-family: Inconsolata;
-    color: white;
-    display: block;
-    position: relative;
-    cursor: pointer;
- 
+  padding: 0 2rem;
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
+  font-size: 2rem;
+  line-height: 2rem;
+  font-family: Inconsolata;
+  color: white;
+  display: block;
+  position: relative;
+  cursor: pointer;
 `;
 
 export default Logo;

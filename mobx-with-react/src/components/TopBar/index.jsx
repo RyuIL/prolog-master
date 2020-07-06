@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from "react";
-import ProfileBtn from "./ProfileBtn";
-import Write from "./Write";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { SearchAlt2 } from "styled-icons/boxicons-regular/SearchAlt2";
-import { signIn } from "../Auth/auth";
-import AuthRoute from "../Auth/AuthRoute";
-import LoginBtn from "./LoginBtn";
+import UserButton from "../Common/UserButton";
 
 export const MSearchIcon = styled(SearchAlt2)`
   width: 20%;
@@ -23,30 +18,11 @@ export const MSearchIcon = styled(SearchAlt2)`
 `;
 
 const TopBar = () => {
-  const [user, setUser] = useState('10');
-  const authenticated = user != null;
+  const [user, setUser] = useState("10");
 
-  const login = ({ email, password }) => setUser({ email: 'kim@test.com', password: '123', name: 'Kim' });
-  // signIn({ email, password })
-  const logout = () => setUser(null);
   return (
     <TopBarLayout>
-      <Link to={"/searchpage"} style={{ textDecoration: "none" }}>
-        <MSearchIcon></MSearchIcon>
-      </Link>
-      <Link to={"/"} style={{ textDecoration: "none" }}>
-        <MLogo>Prolog;</MLogo>
-      </Link>
-      {/* <button onClick={login}> login</button>
-      <button onClick={logout}> logout</button> */}
-      {authenticated ? (
-        <>
-          <ProfileBtn></ProfileBtn>
-          <Write></Write>
-        </>
-      ) : (
-        <LoginBtn></LoginBtn>
-      )}
+      <UserButton></UserButton>
     </TopBarLayout>
   );
 };
@@ -57,7 +33,6 @@ const TopBarLayout = styled.div`
   align-items: flex-end;
   width: 100%;
   text-align: center;
-  /* will be layout css code  */
 `;
 
 const MLogo = styled.div`

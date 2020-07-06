@@ -8,30 +8,15 @@ import Loader from "react-loader-spinner";
 @inject("postStore")
 @observer
 class PostList extends Component {
+  componentDidMount() {
+    this.props.postStore.loadPosts(-1);
+  }
+
   state = {
     items: [],
     hasMoreItems: true
   };
 
-  componentDidMount() {
-    const { postStore } = this.props;
-    postStore.getItems(0, 6);
-    this.setState({
-      items: postStore.returnItems
-    });
-  }
-
-  // //젤 처음에 보여줄 곳을 axios로 우리 back에서 호출하자.
-  // fetch("https://jsonplaceholder.typicode.com/photos/100")
-  //   .then(response => response.json())
-  //   .then(json => {
-  //     console.log(json.id)
-  //     console.log(json.title)
-  //   }
-  //   )
-  // }
-
-  //추가로 데이터를 호출한다. axios로. 이걸 여기서 할지 store에서 할 지는 고민을 좀 해보자.
   fetchMoreData = () => {
     if (this.state.items.length >= this.props.postStore.length) {
       this.setState({ hasMoreItems: false });
@@ -48,10 +33,11 @@ class PostList extends Component {
 
   render() {
     const { items, hasMoreItems } = this.state;
+    const returns = this.props.postStore.returnItems
 
     return (
       <InfiniteScroll
-        dataLength={items.length}
+        dataLength={this.props.postStore.returnLength}
         next={this.fetchMoreData}
         hasMore={hasMoreItems}
         loader={
@@ -68,15 +54,15 @@ class PostList extends Component {
         endMessage={<h4>End</h4>}
       >
         <GridDiv>
-          {items.map((item, index) => (
+          { returns? (returns.map((item, index) => (
             <PostCard key={index} post={item} />
-          ))}
+          ))) : (<></>)}
+          
         </GridDiv>
       </InfiniteScroll>
     );
   }
 }
-
 export default PostList;
 
 const GridDiv = styled.div`
@@ -84,9 +70,9 @@ const GridDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, 33%);
   grid-template-rows: repeat(auto-fit, 1fr);
+  z-index: 1;
 
   @media (max-width: 1024px) {
-    /*태블릿?*/
     grid-template-columns: repeat(auto-fit, 50%);
     grid-template-rows: repeat(auto-fit, 1fr);
   }

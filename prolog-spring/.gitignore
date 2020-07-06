@@ -246,7 +246,7 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/java,react,macos,maven,windows,java-web,intellij,visualstudiocode
 
-**/resources/application.yml
+**/resources/*.yml
 
 
 # Created by https://www.gitignore.io/api/java,macos,maven,gradle,windows,eclipse,java-web,intellij,netbeans,visualstudiocode

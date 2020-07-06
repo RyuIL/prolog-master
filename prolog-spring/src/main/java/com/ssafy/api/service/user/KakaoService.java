@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.ssafy.api.advice.exception.CCommunicationException;
 import com.ssafy.api.model.social.KakaoProfile;
 import com.ssafy.api.model.social.RetKakaoAuth;
+import com.ssafy.api.repository.UserJpaRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -13,6 +14,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import javax.transaction.Transactional;
+
 @RequiredArgsConstructor
 @Service
 public class KakaoService {
@@ -20,6 +23,7 @@ public class KakaoService {
     private final RestTemplate restTemplate;
     private final Environment env;
     private final Gson gson;
+    private final UserJpaRepo userJpaRepo;
 
     @Value("${spring.url.base}")
     private String baseUrl;
@@ -66,5 +70,43 @@ public class KakaoService {
             return gson.fromJson(response.getBody(), RetKakaoAuth.class);
         }
         return null;
+    }
+
+    public KakaoProfile postKakaoLogout(String accessToken) {
+        // Set header : Content-type: application/x-www-form-urlencoded
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("Authorization", "Bearer " + accessToken);
+
+        // Set http entity
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
+        try {
+            // Request profile
+            ResponseEntity<String> response = restTemplate.postForEntity(env.getProperty("spring.social.kakao.url.logout"), request, String.class);
+            if (response.getStatusCode() == HttpStatus.OK)
+                return gson.fromJson(response.getBody(), KakaoProfile.class);
+        } catch (Exception e) {
+            throw new CCommunicationException();
+        }
+        throw new CCommunicationException();
+    }
+
+    public KakaoProfile postKakaoUnlink(String accessToken){
+        // Set header : Content-type: application/x-www-form-urlencoded
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("Authorization", "Bearer " + accessToken);
+
+        // Set http entity
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
+        try {
+            // Request profile
+            ResponseEntity<String> response = restTemplate.postForEntity(env.getProperty("spring.social.kakao.url.unlink"), request, String.class);
+            if (response.getStatusCode() == HttpStatus.OK)
+                return gson.fromJson(response.getBody(), KakaoProfile.class);
+        } catch (Exception e) {
+            throw new CCommunicationException();
+        }
+        throw new CCommunicationException();
     }
 }

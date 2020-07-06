@@ -20,3 +20,18 @@ communicationError:
 existingUser:
   code: "-1005"
   msg: "You are an existing member."
+userIdNotMatch:
+  code: "-1006"
+  msg: "The requested ID is different from the response ID"
+fileUploadError:
+  code: "-1007"
+  msg: "Do not create directory."
+fileDownloadError:
+  code: "-1008"
+  msg: "Not found file"
+notOwner:
+  code: "-1006"
+  msg: "You are not the owner of this resource."
+resourceNotExist:
+  code: "-1007"
+  msg: "This resource does not exist."

@@ -1,7 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<h1>Hello World</h1>
+
+<!-- OGNL -->
+<p th:text="${new java.util.Date().toString()}"></p>
+
+<!-- utility object -->
+<p th:text="${#dates.format(new java.util.Date(), 'yyyy-MM-dd HH:mm')}"></p>
+
 <button onclick="popupKakaoLogin()">KakaoLogin</button>
+<button onclick="popupGoogleLogin()">GoogleLogin</button>
+<button onclick="popupGithubLogin()">GithubLogin</button>
+
+</body>
 <script>
     function popupKakaoLogin() {
         var url = "https://kauth.kakao.com/oauth/authorize?client_id=edfa847bb67e1635672562f39e9b0366&redirect_uri=http://localhost:8080/social/login/kakao&response_type=code";
         window.open(url, 'popupKakaoLogin', 'width=700,height=500,scrollbars=0,toolbar=0,menubar=no');
     }
+    function popupGoogleLogin() {
+        // var url = "https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/drive.metadata.readonly&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:8080/social/login/google&response_type=code&client_id=10895466631-mvderuc3qv5qeu5m88ptf4b0a76avg7a.apps.googleusercontent.com"
+        var url = "https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:8080/social/login/google&response_type=code&client_id=10895466631-mvderuc3qv5qeu5m88ptf4b0a76avg7a.apps.googleusercontent.com"
+        window.open(url, 'popupGoogleLogin', 'width=700,height=500,scrollbars=0,toolbar=0,menubar=no');
+    }
+    function popupGithubLogin() {
+        var url = "https://github.com/login/oauth/authorize?client_id=55cfdf15046620ea9418&redirect_uri=http://localhost:8080/social/login/github&scope=repo&state=poka"
+        window.open(url, 'popupGoogleLogin', 'width=700,height=500,scrollbars=0,toolbar=0,menubar=no');
+    }
 </script>
+</html>
